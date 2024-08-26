@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=ideagallery'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=verysecret'
+      - 'MYSQL_USER=myuser'
+    ports:
+      - '3306:3306'
+
+  imgproxy:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy
+    ports:
+      - "18080:8080"
+    environment:
+      IMGPROXY_MAX_SRC_RESOLUTION: "20MP"
+      IMGPROXY_MAX_SRC_FILE_SIZE: "5MB"
+      IMGPROXY_QUALITY: "80"
+      IMGPROXY_FILESYSTEM_CACHE_PATH: "/var/cache/imgproxy"
+      IMGPROXY_FILESYSTEM_CACHE_SIZE: "100MB"
+      IMGPROXY_FILESYSTEM_CACHE_TTL: "3600"
