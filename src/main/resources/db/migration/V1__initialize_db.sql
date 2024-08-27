@@ -7,8 +7,8 @@ CREATE TABLE `idea`
     `description`  VARCHAR(255) NOT NULL,
     `image_url`    VARCHAR(255) NOT NULL,
     `likes`        BIGINT       NOT NULL DEFAULT 0,
-
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `idx_creator_id` (`creator_id`)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8
@@ -17,7 +17,8 @@ CREATE TABLE `idea`
 CREATE TABLE `category`
 (
     `id`   INT AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(255) NOT NULL
+    `name` VARCHAR(255) NOT NULL,
+    INDEX `idx_name` (`name`)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8
@@ -40,7 +41,8 @@ CREATE TABLE `user_likes`
     `id`      BIGINT AUTO_INCREMENT PRIMARY KEY,
     `idea_id` BIGINT NOT NULL,
     `user_id` INT    NOT NULL,
-    UNIQUE (idea_id, user_id)
+    UNIQUE (idea_id, user_id),
+    INDEX `idx_user_idea` (`user_id`, `idea_id`)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8
@@ -63,7 +65,8 @@ CREATE TABLE `comment`
     `user_id`    VARCHAR(255) NOT NULL,
     `idea_id`    BIGINT       NOT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+    INDEX `idx_idea_id` (`idea_id`)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8
