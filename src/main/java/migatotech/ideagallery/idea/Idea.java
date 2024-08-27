@@ -2,11 +2,13 @@ package migatotech.ideagallery.idea;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import migatotech.ideagallery.category.CategoryEntity;
 
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class Idea {
     @JsonIgnore Long id;
     String title;

@@ -20,12 +20,10 @@ public class CategoryService {
     }
 
     public Set<CategoryEntity> getAndSaveNonExistingCategories(Set<String> categories) {
-        return categories.stream().map(c -> {
-            return categoryRepository.findByName(c).orElseGet(() -> {
-                var categoryEntity = new CategoryEntity();
-                categoryEntity.setName(c);
-                return categoryRepository.save(categoryEntity);
-            });
-        }).collect(Collectors.toSet());
+        return categories.stream().map(c -> categoryRepository.findByName(c).orElseGet(() -> {
+            var categoryEntity = new CategoryEntity();
+            categoryEntity.setName(c);
+            return categoryRepository.save(categoryEntity);
+        })).collect(Collectors.toSet());
     }
 }

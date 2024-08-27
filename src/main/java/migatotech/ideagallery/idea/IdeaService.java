@@ -30,7 +30,7 @@ public class IdeaService {
         ideaRepository.save(ideaEntity);
     }
 
-    public Idea getIdea(long ideaId, String resolution, Integer userId) {
+    public Idea getIdea(Long ideaId, String resolution, Integer userId) {
         var ideaEntity = ideaRepository.findById(ideaId).orElseThrow(() -> new DataNotFoundException("Idea not found"));
         var idea = new Idea(ideaEntity);
         var isLikedByMe = userId != null && likeRepository.findByUserIdAndIdeaId(userId, ideaId).isPresent();
@@ -57,15 +57,17 @@ public class IdeaService {
     }
 
     public void incrementLikes(Long ideaId, Integer userId) {
-        ideaRepository.findByIdAndCreatorId(ideaId, userId).ifPresent(ideaEntity -> ideaEntity.setLikes(ideaEntity.getLikes() + 1));
+        ideaRepository.findByIdAndCreatorId(ideaId, userId)
+                .ifPresent(ideaEntity -> ideaEntity.setLikes(ideaEntity.getLikes() + 1));
     }
 
     public void decrementLikes(Long ideaId, Integer userId) {
-        ideaRepository.findByIdAndCreatorId(ideaId, userId).ifPresent(ideaEntity -> ideaEntity.setLikes(ideaEntity.getLikes() - 1));
+        ideaRepository.findByIdAndCreatorId(ideaId, userId)
+                .ifPresent(ideaEntity -> ideaEntity.setLikes(ideaEntity.getLikes() - 1));
     }
 
-    public List<Idea> getMyIdeas(String resolution, Integer integer, Pageable pageable) {
-        var ideaEntities = ideaRepository.findAllByCreatorId(integer, pageable);
+    public List<Idea> getMyIdeas(String resolution, Integer userId, Pageable pageable) {
+        var ideaEntities = ideaRepository.findAllByCreatorId(userId, pageable);
         var idea = ideaEntities.stream().map(Idea::new).toList();
         idea.forEach(i -> i.setImageUrl(posterService.getPosterUrl(i.getImageUrl(), resolution)));
         return idea;

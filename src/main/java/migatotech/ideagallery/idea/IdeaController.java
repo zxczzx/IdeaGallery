@@ -25,7 +25,7 @@ public class IdeaController {
 
     @Operation(summary = "Get idea by id", security = { @SecurityRequirement(name = "bearer-key") })
     @GetMapping("/{ideaId}")
-    public Idea getIdea(@PathVariable long ideaId,
+    public Idea getIdea(@PathVariable Long ideaId,
                         @RequestParam(name = "resolution", required = false) String resolution) {
         return ideaService.getIdea(ideaId, resolution, SessionHelper.retrieveOptionalAccountId(session));
     }

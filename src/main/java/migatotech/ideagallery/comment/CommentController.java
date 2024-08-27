@@ -29,7 +29,7 @@ public class CommentController {
     }
 
     @GetMapping("/{ideaId}")
-    public List<Comment> getCommentsForIdea(@PathVariable long ideaId) {
+    public List<Comment> getCommentsForIdea(@PathVariable Long ideaId) {
         return commentService.getCommentsForIdea(ideaId);
     }
 }
