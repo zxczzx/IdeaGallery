@@ -23,7 +23,7 @@ public class IdeaService {
 
     @Transactional
     public void createIdea(NewIdea newIdea, Integer creatorId) {
-        var user = userService.getUserById(creatorId);
+        var user = userService.getUserById(creatorId.toString());
         posterService.cachePoster(newIdea.getImageUrl());
         var categories = categoryService.getAndSaveNonExistingCategories(newIdea.getCategories());
         IdeaEntity ideaEntity = newIdea.ToIdeaEntity(creatorId, user.getName(), newIdea.getImageUrl(), categories);

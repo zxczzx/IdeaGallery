@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserEntity getUserById(Integer id) {
+    public UserEntity getUserById(String id) {
         return userRepository.findById(id).orElseThrow(() -> new DataNotFoundException("User not found"));
     }
 
     public String createUser(User user) {
         var userEntity = new UserEntity();
+        userEntity.setId(user.id());
         userEntity.setName(user.name());
         userEntity.setEmail(user.email());
         return userRepository.save(userEntity).getId();

@@ -16,7 +16,7 @@ public class CommentService {
     private final Clock clock;
 
     public void addCommentToIdea(NewComment comment, Integer userId) {
-        var user = userService.getUserById(userId);
+        var user = userService.getUserById(userId.toString());
 
         var newComment = new CommentEntity();
         newComment.setIdeaId(comment.ideaId());
