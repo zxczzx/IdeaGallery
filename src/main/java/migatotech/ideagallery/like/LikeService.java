@@ -14,12 +14,18 @@ public class LikeService {
 
     @Transactional
     public void addLike(Long ideaId, Integer userId) {
+        if (isLiked(ideaId, userId)) {
+            return;
+        }
         likeRepository.save(new LikeEntity(ideaId, userId));
         ideaService.incrementLikes(ideaId, userId);
     }
 
     @Transactional
     public void removeLike(Long ideaId, Integer userId) {
+        if (!isLiked(ideaId, userId)) {
+            return;
+        }
         likeRepository.deleteByIdeaIdAndUserId(ideaId, userId);
         ideaService.decrementLikes(ideaId, userId);
     }

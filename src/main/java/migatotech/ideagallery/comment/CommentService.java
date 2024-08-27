@@ -28,7 +28,7 @@ public class CommentService {
 
     public List<Comment> getCommentsForIdea(long ideaId) {
         return commentRepository.findAllByIdeaId(ideaId).stream()
-                .map(ce -> new Comment(ce.getText(), ce.getUser().getName()))
+                .map(ce -> new Comment(ce.getText(), ce.getUser().getName(), ce.getCreatedAt()))
                 .toList();
     }
 }

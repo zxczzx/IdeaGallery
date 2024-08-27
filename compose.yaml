@@ -9,15 +9,18 @@ services:
     ports:
       - '3306:3306'
 
-  imgproxy:
-    image: darthsim/imgproxy:latest
-    container_name: imgproxy
+  thumbor:
+    image: ghcr.io/minimalcompact/thumbor
     ports:
-      - "18080:8080"
+      - '8888:80'
+    restart: always
+    volumes:
+      - './thumbor.conf:/app/thumbor.conf'
+      - './result_storage:/tmp/thumbor/result_storage'
+      - './storage:/tmp/thumbor/storage'
     environment:
-      IMGPROXY_MAX_SRC_RESOLUTION: "20MP"
-      IMGPROXY_MAX_SRC_FILE_SIZE: "5MB"
-      IMGPROXY_QUALITY: "80"
-      IMGPROXY_FILESYSTEM_CACHE_PATH: "/var/cache/imgproxy"
-      IMGPROXY_FILESYSTEM_CACHE_SIZE: "100MB"
-      IMGPROXY_FILESYSTEM_CACHE_TTL: "3600"
+      - STORAGE=thumbor.storages.file_storage
+      - FILE_STORAGE_ROOT_PATH=/tmp/thumbor/storage
+      - RESULT_STORAGE=thumbor.result_storages.file_storage
+      - STORAGE_EXPIRATION_SECONDS=86400
+      - CORS_ALLOW_ORIGIN=*

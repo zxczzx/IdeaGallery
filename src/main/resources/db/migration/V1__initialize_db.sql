@@ -5,7 +5,7 @@ CREATE TABLE `idea`
     `creator_name` VARCHAR(255) NOT NULL,
     `title`        VARCHAR(255) NOT NULL,
     `description`  VARCHAR(255) NOT NULL,
-    `image_id`     BIGINT       NOT NULL,
+    `image_url`    VARCHAR(255) NOT NULL,
     `likes`        BIGINT       NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id`)
@@ -35,7 +35,7 @@ CREATE TABLE `idea_category`
     DEFAULT CHARSET = utf8
     COLLATE = utf8_general_ci;
 
-CREATE TABLE `like`
+CREATE TABLE `user_likes`
 (
     `id`      BIGINT AUTO_INCREMENT PRIMARY KEY,
     `idea_id` BIGINT NOT NULL,

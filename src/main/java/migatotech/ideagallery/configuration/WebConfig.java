@@ -15,6 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/**"); // Apply to all paths
+                .addPathPatterns("/idea/**")
+                .addPathPatterns("/like/**")
+                .addPathPatterns("/comment/**");
     }
 }

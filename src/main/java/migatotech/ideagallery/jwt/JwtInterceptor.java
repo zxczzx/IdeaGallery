@@ -33,9 +33,6 @@ public class JwtInterceptor implements HandlerInterceptor {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
                 return false;
             }
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authorization header is missing or invalid");
-            return false;
         }
 
         return true;

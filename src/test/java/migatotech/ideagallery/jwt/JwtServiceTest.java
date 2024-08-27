@@ -26,6 +26,7 @@ class JwtServiceTest {
     void createJwtTest() {
         String jwt = service.createJwt("1");
 
+        System.out.println(jwt);
         assertThat(jwt).isNotNull();
     }
 }
